@@ -1,0 +1,31 @@
+<h2>Connexion</h2>
+
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+  <div>
+    <label for="login">Identifiant :</label>
+    <input id="login" type="text" formControlName="login"/>
+  </div>
+
+  <div>
+    <label for="password">Mot de passe :</label>
+    <input id="password" type="password" formControlName="password" />
+  </div>
+
+  <button type="submit" [disabled]="isLoading || loginForm.invalid">
+    {{ isLoading ? 'Connexion en cours...' : 'Se connecter' }}
+  </button>
+</form>
+
+@if (isLoading) {
+  <p>Connexion en cours...</p>
+}
+
+@if (successMessage) {
+  <p style="color: green;">{{ successMessage }}</p>
+}
+
+@if (errorMessage) {
+  <p style="color: red;">{{ errorMessage }}</p>
+}
+

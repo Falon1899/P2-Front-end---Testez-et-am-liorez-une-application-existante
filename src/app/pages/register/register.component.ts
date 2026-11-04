@@ -5,6 +5,8 @@ import { MaterialModule } from '../../shared/material.module';
 import { UserService } from '../../core/service/user.service';
 import { Register } from '../../core/models/Register';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';   
 
 @Component({
   selector: 'app-register',
@@ -17,6 +19,12 @@ export class RegisterComponent implements OnInit {
   private userService = inject(UserService);
   private formBuilder = inject(FormBuilder);
   private destroyRef = inject(DestroyRef);
+  
+  // Permet de naviguer vers une autre page après l'inscription
+  private router = inject(Router);
+  // Permet de lire les paramètres de l'URL
+  private route = inject(ActivatedRoute);
+
   registerForm: FormGroup = new FormGroup({});
   submitted: boolean = false;
 
@@ -50,8 +58,15 @@ export class RegisterComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(
       () => {
-        alert('SUCCESS!! :-)');
-        // TODO : router l'utilisateur vers la page de login
+        // Confirme la création de l'utilisateur
+        alert('Inscription réussie !');
+
+        // Vérifie si le formulaire a été ouvert depuis la liste des étudiants
+        const fromStudents =
+          this.route.snapshot.queryParamMap.get('from') === 'students';
+
+        // Redirige vers la liste des étudiants ou vers la connexion
+        this.router.navigate(fromStudents ? ['/students'] : ['/login']);
       },
     );
   }

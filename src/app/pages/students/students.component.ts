@@ -4,9 +4,11 @@ import { OnInit, inject } from '@angular/core';
 import { UserService } from '../../core/service/user.service';
 import { Student } from '../../core/models/Students';
 
+import { RouterLink } from '@angular/router';
+
 @Component({
   selector: 'app-students',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './students.component.html',
   styleUrl: './students.component.css'
 })

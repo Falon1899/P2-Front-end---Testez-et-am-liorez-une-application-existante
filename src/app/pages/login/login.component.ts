@@ -6,6 +6,8 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../core/service/user.service';
 import { inject } from '@angular/core';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule], // rend les fonctionnalités de ReactiveFormsModule disponibles dans le template HTML du composant
@@ -15,6 +17,8 @@ import { inject } from '@angular/core';
 export class LoginComponent {
   private fb = new FormBuilder().nonNullable;
   private userService = inject(UserService);
+  // Injecte le routeur pour permettre la navigation après connexion
+  private router = inject(Router);
 
   // Définit les champs du formulaire et leurs règles de validation
 loginForm = this.fb.group({
@@ -45,7 +49,12 @@ onSubmit(): void {
 
     this.userService.login(credentials).subscribe({
       next: (token) => {
-        this.successMessage = 'Authentification réussie !';
+        // Enregistre le JWT dans le stockage de session
+        sessionStorage.setItem('token', token);
+
+        // Redirige l'utilisateur vers le menu CRUD
+        this.router.navigate(['/students']);
+
         this.isLoading = false;
       },
       error: (error) => {

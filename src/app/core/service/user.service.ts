@@ -16,6 +16,8 @@ export class UserService {
   register(user: Register): Observable<Object> {
     return this.httpClient.post('/api/register', user);
   }
+
+  // Envoie les identifiants au backend et récupère le token JWT
   login(user: Login): Observable<string> {
   return this.httpClient.post('/api/login', user, {
     responseType: 'text'

@@ -1,9 +1,8 @@
 
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UserService } from '../../core/service/user.service';
 import { Student } from '../../core/models/Students';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-student-detail',
@@ -16,6 +15,7 @@ export class StudentDetailComponent implements OnInit {
 
   private route = inject(ActivatedRoute);
   private userService = inject(UserService);
+  private router = inject(Router);
 
   // Contiendra les informations de l'étudiant sélectionné
   student: Student | null = null;
@@ -39,6 +39,39 @@ export class StudentDetailComponent implements OnInit {
       },
       error: (error) => {
         console.error('Erreur de récupération de l’étudiant :', error);
+      }
+    });
+  }
+
+  // Supprime l'étudiant après confirmation
+  deleteStudent(): void {
+
+    // Vérifie qu'un étudiant est chargé
+    if (!this.student) {
+      return;
+    }
+
+    // Demande confirmation avant toute suppression
+    const confirmation = confirm(
+      `Voulez-vous vraiment supprimer ${this.student.firstName} ${this.student.lastName} ?`
+    );
+
+    // Annule la suppression si l'utilisateur refuse
+    if (!confirmation) {
+      return;
+    }
+
+    // Envoie la demande de suppression au backend
+    this.userService.deleteStudent(this.student.id).subscribe({
+      next: () => {
+        alert('Étudiant supprimé avec succès !');
+
+        // Retourne à la liste des étudiants
+        this.router.navigate(['/students']);
+      },
+      error: (error) => {
+        console.error('Erreur lors de la suppression :', error);
+        alert("Impossible de supprimer l'étudiant.");
       }
     });
   }

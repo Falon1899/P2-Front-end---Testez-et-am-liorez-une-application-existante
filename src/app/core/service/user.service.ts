@@ -42,4 +42,10 @@ export class UserService {
   updateStudent(id: number, student: UpdateStudent): Observable<Student> {
     return this.httpClient.put<Student>(`/api/students/${id}`, student);
 }
+
+  // Supprime un étudiant à partir de son identifiant
+  deleteStudent(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`/api/students/${id}`);
+}
+
 }

@@ -8,14 +8,19 @@
     <p><strong>Nom :</strong> {{ student.lastName }}</p>
     <p><strong>Identifiant :</strong> {{ student.login }}</p>
   </div>
-} @else {
-  <p>Aucun étudiant à afficher.</p>
-}
 
-@if (student) {
+  <!-- Permet de modifier les informations de l'étudiant -->
   <button [routerLink]="['/students', student.id, 'edit']">
     Modifier
   </button>
+
+  <!-- Demande confirmation avant de supprimer l'étudiant -->
+  <button type="button" (click)="deleteStudent()">
+    Supprimer
+  </button>
+
+} @else {
+  <p>Aucun étudiant à afficher.</p>
 }
 
 <button routerLink="/students">Retour à la liste</button>

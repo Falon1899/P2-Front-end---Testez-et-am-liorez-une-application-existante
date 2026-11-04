@@ -7,6 +7,8 @@ import { Register } from '../models/Register';
 import { Login } from '../models/Login';
 import { Student } from '../models/Students';
 
+import { UpdateStudent } from '../models/UpdateStudent';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,5 +36,10 @@ export class UserService {
   // Récupère les informations d'un étudiant à partir de son identifiant
   getStudentById(id: number): Observable<Student> {
     return this.httpClient.get<Student>(`/api/students/${id}`);
+  }
+
+  // Modifie les informations d'un étudiant existant
+  updateStudent(id: number, student: UpdateStudent): Observable<Student> {
+    return this.httpClient.put<Student>(`/api/students/${id}`, student);
 }
 }

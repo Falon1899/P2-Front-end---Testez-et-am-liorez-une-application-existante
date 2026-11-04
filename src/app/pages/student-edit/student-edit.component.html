@@ -1,0 +1,41 @@
+
+<h1>Modifier un étudiant</h1>
+<h2>TEST AFFICHAGE MODIFICATION</h2>
+@if (errorMessage) {
+  <p>{{ errorMessage }}</p>
+}
+
+<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+
+  <div>
+    <label for="firstName">Prénom :</label>
+    <input
+      id="firstName"
+      type="text"
+      formControlName="firstName"
+    />
+  </div>
+
+  <div>
+    <label for="lastName">Nom :</label>
+    <input
+      id="lastName"
+      type="text"
+      formControlName="lastName"
+    />
+  </div>
+
+  <div>
+    <label for="login">Identifiant :</label>
+    <input
+      id="login"
+      type="text"
+      formControlName="login"
+    />
+  </div>
+    <button type="submit" [disabled]="editForm.invalid">
+    Enregistrer les modifications
+    </button>
+</form>
+
+<button routerLink="/students">Retour à la liste</button>

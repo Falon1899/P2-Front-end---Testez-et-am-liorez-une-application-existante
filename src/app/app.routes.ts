@@ -12,6 +12,7 @@ import { StudentsComponent } from './pages/students/students.component';
 import { authGuard } from './core/guards/auth.guard';
 
 import { StudentDetailComponent } from './pages/student-detail/student-detail.component';
+import { StudentEditComponent } from './pages/student-edit/student-edit.component';
 
 export const routes: Routes = [
   {
@@ -42,5 +43,9 @@ export const routes: Routes = [
   canActivate: [authGuard]
   },
 
-
+  {
+    path: 'students/:id/edit',
+    component: StudentEditComponent,
+    canActivate: [authGuard]
+  },
 ];

@@ -12,4 +12,10 @@
   <p>Aucun étudiant à afficher.</p>
 }
 
+@if (student) {
+  <button [routerLink]="['/students', student.id, 'edit']">
+    Modifier
+  </button>
+}
+
 <button routerLink="/students">Retour à la liste</button>

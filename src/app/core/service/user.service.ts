@@ -1,26 +1,33 @@
+
 import { Injectable } from '@angular/core';
-import { Register } from '../models/Register';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-
+import { Register } from '../models/Register';
 import { Login } from '../models/Login';
-
+import { Student } from '../models/Students';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+
   constructor(private httpClient: HttpClient) { }
 
+  // Envoie les informations d'inscription au backend
   register(user: Register): Observable<Object> {
     return this.httpClient.post('/api/register', user);
   }
 
   // Envoie les identifiants au backend et récupère le token JWT
   login(user: Login): Observable<string> {
-  return this.httpClient.post('/api/login', user, {
-    responseType: 'text'
-  });
-}
+    return this.httpClient.post('/api/login', user, {
+      responseType: 'text'
+    });
+  }
+
+  // Récupère la liste des étudiants depuis le backend
+  getStudents(): Observable<Student[]> {
+    return this.httpClient.get<Student[]>('/api/users');
+  }
 }

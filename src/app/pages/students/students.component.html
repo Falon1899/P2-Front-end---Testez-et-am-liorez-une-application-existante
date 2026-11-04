@@ -1,1 +1,28 @@
-<p>students works!</p>
+
+<h1>Liste des étudiants</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Prénom</th>
+      <th>Nom</th>
+      <th>Identifiant</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (student of students; track student.id) {
+      <tr>
+        <td>{{ student.id }}</td>
+        <td>{{ student.firstName }}</td>
+        <td>{{ student.lastName }}</td>
+        <td>{{ student.login }}</td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="4">Aucun étudiant à afficher.</td>
+      </tr>
+    }
+  </tbody>
+</table>

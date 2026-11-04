@@ -1,0 +1,15 @@
+
+<h1>Détails de l'étudiant</h1>
+
+@if (student) {
+  <div>
+    <p><strong>ID :</strong> {{ student.id }}</p>
+    <p><strong>Prénom :</strong> {{ student.firstName }}</p>
+    <p><strong>Nom :</strong> {{ student.lastName }}</p>
+    <p><strong>Identifiant :</strong> {{ student.login }}</p>
+  </div>
+} @else {
+  <p>Aucun étudiant à afficher.</p>
+}
+
+<button routerLink="/students">Retour à la liste</button>

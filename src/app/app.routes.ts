@@ -11,6 +11,8 @@ import { StudentsComponent } from './pages/students/students.component';
 
 import { authGuard } from './core/guards/auth.guard';
 
+import { StudentDetailComponent } from './pages/student-detail/student-detail.component';
+
 export const routes: Routes = [
   {
     path: '',
@@ -32,7 +34,13 @@ export const routes: Routes = [
   path: 'students',
   component: StudentsComponent,
   canActivate: [authGuard]
-  }
+  },
+
+  {
+  path: 'students/:id',
+  component: StudentDetailComponent,
+  canActivate: [authGuard]
+  },
 
 
 ];

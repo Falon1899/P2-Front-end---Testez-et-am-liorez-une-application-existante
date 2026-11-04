@@ -1,6 +1,11 @@
 
 <h1>Liste des étudiants</h1>
-<button routerLink="/register" [queryParams]="{ from: 'students' }"> Ajouter un étudiant </button>
+
+<!-- Permet d'ajouter un étudiant en réutilisant le formulaire d'inscription -->
+<button routerLink="/register" [queryParams]="{ from: 'students' }">
+  Ajouter un étudiant
+</button>
+
 <table>
   <thead>
     <tr>
@@ -8,6 +13,7 @@
       <th>Prénom</th>
       <th>Nom</th>
       <th>Identifiant</th>
+      <th>Actions</th>
     </tr>
   </thead>
 
@@ -18,10 +24,15 @@
         <td>{{ student.firstName }}</td>
         <td>{{ student.lastName }}</td>
         <td>{{ student.login }}</td>
+        <td>
+          <button [routerLink]="['/students', student.id]">
+            Voir
+          </button>
+        </td>
       </tr>
     } @empty {
       <tr>
-        <td colspan="4">Aucun étudiant à afficher.</td>
+        <td colspan="5">Aucun étudiant à afficher.</td>
       </tr>
     }
   </tbody>

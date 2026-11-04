@@ -30,4 +30,9 @@ export class UserService {
   getStudents(): Observable<Student[]> {
     return this.httpClient.get<Student[]>('/api/users');
   }
+
+  // Récupère les informations d'un étudiant à partir de son identifiant
+  getStudentById(id: number): Observable<Student> {
+    return this.httpClient.get<Student>(`/api/students/${id}`);
+}
 }
